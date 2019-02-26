@@ -29,8 +29,6 @@ public class GameGrid extends Observable {
 				array[i][j] = EMPTY;
 			}
 		}
-		array[1][0] = 1;
-		array[2][0] = 1;
 	}
 
 	/**
@@ -132,11 +130,9 @@ public class GameGrid extends Observable {
 						} else {
 							count = 0;
 							delta++;
-							System.out.println(delta);
 						}
 						if (count >= INROW) {
-							System.out.println("3");
-							return true;
+							return true;	
 						}
 					}
 					

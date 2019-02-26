@@ -1,11 +1,14 @@
 package lab4.gui;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -97,19 +100,52 @@ public class GomokuGUI implements Observer {
 				}
 			}
 		});
-		
-		gameGridPanel.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if(e.BUTTON_LEFT==e.CLICK) {
-					System.out.println("sads");
-				}
+
+		gameGridPanel.addMouseListener(new MouseListener() {
+			public void mouseClicked(java.awt.event.MouseEvent e) {
+				// TODO Auto-generated method stub
+				g.move(e.getX() / gameGridPanel.getUNIT_SIZE(), e.getY() / gameGridPanel.getUNIT_SIZE());
 			}
-			
+
+			@Override
+			public void mouseEntered(java.awt.event.MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(java.awt.event.MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(java.awt.event.MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseReleased(java.awt.event.MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
 		});
-		
-		frame.add(gameGridPanel);
+
+		Box b = Box.createVerticalBox();
+		b.add(gameGridPanel);
+		Box b2 = Box.createHorizontalBox();
+		b2.add(connectButton);
+		b2.add(disconnectButton);
+		b2.add(newGameButton);
+		b.add(b2);
+		messageLabel.setText("Welcome To Gomoku! Press New Game To Get Started!");
+		messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		b.add(messageLabel);
+		frame.add(b);
+		frame.setVisible(true);
 		frame.pack();
-		
+
 	}
 
 	public void update(Observable arg0, Object arg1) {
@@ -131,7 +167,5 @@ public class GomokuGUI implements Observer {
 		if (arg0 == gamestate) {
 			messageLabel.setText(gamestate.getMessageString());
 		}
-
 	}
-
 }

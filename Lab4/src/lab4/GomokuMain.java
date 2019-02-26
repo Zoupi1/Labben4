@@ -9,12 +9,9 @@ public class GomokuMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GomokuClient client = new GomokuClient(4003);
+		GomokuClient client = new GomokuClient(4034);
 		GomokuGameState gameState = new GomokuGameState(client);
 		GomokuGUI GUI = new GomokuGUI(gameState, client);
-//		GameGrid gg = new GameGrid(10);
-//		System.out.println(gg.isWinner(1));
-		
 	}
 
 }
