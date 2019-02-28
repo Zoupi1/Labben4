@@ -9,7 +9,7 @@ public class GomokuMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		GomokuClient client = new GomokuClient(4034);
+		GomokuClient client = new GomokuClient(4053);
 		GomokuGameState gameState = new GomokuGameState(client);
 		GomokuGUI GUI = new GomokuGUI(gameState, client);
 	}

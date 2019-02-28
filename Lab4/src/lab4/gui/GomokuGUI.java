@@ -1,8 +1,11 @@
 package lab4.gui;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.util.Observable;
@@ -10,8 +13,10 @@ import java.util.Observer;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.sun.glass.events.MouseEvent;
 
@@ -54,8 +59,6 @@ public class GomokuGUI implements Observer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Gomoku");
 		frame.setVisible(true);
-		frame.setResizable(false);
-
 		//
 		gameGridPanel = new GamePanel(gamestate.getGameGrid());
 		gameGridPanel.setVisible(true);
@@ -107,31 +110,28 @@ public class GomokuGUI implements Observer {
 				g.move(e.getX() / gameGridPanel.getUNIT_SIZE(), e.getY() / gameGridPanel.getUNIT_SIZE());
 			}
 
-			@Override
 			public void mouseEntered(java.awt.event.MouseEvent e) {
 				// TODO Auto-generated method stub
 
 			}
 
-			@Override
 			public void mouseExited(java.awt.event.MouseEvent e) {
 				// TODO Auto-generated method stub
 
 			}
 
-			@Override
 			public void mousePressed(java.awt.event.MouseEvent e) {
 				// TODO Auto-generated method stub
 
 			}
 
-			@Override
 			public void mouseReleased(java.awt.event.MouseEvent e) {
 				// TODO Auto-generated method stub
 
 			}
 		});
 
+		JPanel panel = new JPanel(); // Allt 
 		Box b = Box.createVerticalBox();
 		b.add(gameGridPanel);
 		Box b2 = Box.createHorizontalBox();
@@ -142,8 +142,31 @@ public class GomokuGUI implements Observer {
 		messageLabel.setText("Welcome To Gomoku! Press New Game To Get Started!");
 		messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		b.add(messageLabel);
-		frame.add(b);
-		frame.setVisible(true);
+		
+		panel.add(b);
+		panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		// Min size på fönstret
+		frame.setMinimumSize(new Dimension(g.getGameGrid().getSize() * gameGridPanel.getUNIT_SIZE() + 25,
+				g.getGameGrid().getSize() * gameGridPanel.getUNIT_SIZE() + 100));
+
+		frame.addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent evt) {
+				Dimension size = frame.getSize();
+				Dimension min = frame.getMinimumSize();
+				if (size.getWidth() < min.getWidth()) {
+					frame.setSize((int) min.getWidth(), (int) size.getHeight());
+					gameGridPanel.repaint();
+				}
+				if (size.getHeight() < min.getHeight()) {
+					frame.setSize((int) size.getWidth(), (int) min.getHeight());
+					gameGridPanel.repaint();
+
+				}
+			}
+		});
+
+		frame.add(panel);
 		frame.pack();
 
 	}

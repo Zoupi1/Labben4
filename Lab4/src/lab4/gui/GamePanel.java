@@ -18,9 +18,13 @@ public class GamePanel extends JPanel implements Observer {
 
 	private final int UNIT_SIZE = 20;
 	private GameGrid grid;
-	
+
 	public int getUNIT_SIZE() {
 		return UNIT_SIZE;
+	}
+
+	public GameGrid getGrid() {
+		return grid;
 	}
 
 	/**
@@ -56,33 +60,25 @@ public class GamePanel extends JPanel implements Observer {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		for (int i = 0; i < grid.getSize(); i++) {
-			for (int j = 0; j<grid.getSize();j++) {
+			for (int j = 0; j < grid.getSize(); j++) {
 				// rutnätet
 				g.setColor(Color.black);
-				int[] gp = getGridPosition(i,j); 
+				int[] gp = getGridPosition(i, j);
 				g.drawRect(gp[0], gp[1], UNIT_SIZE, UNIT_SIZE);
-				
+
 				// me
 				if (grid.getLocation(i, j) == 1) {
 					g.setColor(Color.blue);
 					g.fillOval(gp[0], gp[1], UNIT_SIZE, UNIT_SIZE);
 				}
-				
+
 				// other
 				if (grid.getLocation(i, j) == 2) {
 					g.setColor(Color.red);
 					g.fillOval(gp[0], gp[1], UNIT_SIZE, UNIT_SIZE);
 				}
-					
-				
 			}
 		}
-		
-		
-		
-		
-//		g.fillRect(2, 4, 50, 50);
-
 	}
 
 }
